@@ -558,7 +558,7 @@ main()
 ```
 </details>
 
-## ATCoder 
+## 18. ATCoder 
 
 https://atcoder.jp/contests/abc122/tasks/abc122_b
 
@@ -585,8 +585,7 @@ def main():
     
     print(ans)
 
-main()
-            
+main()     
 ```
 </details>
 
@@ -953,6 +952,1261 @@ def main():
     x4 = x1+y1-y2
     y4 = y1-x1+x2
     print(x3, y3, x4, y4)
+
+main()
+```
+
+</details>
+
+## 31. Varied 
+
+https://atcoder.jp/contests/abc063/tasks/abc063_b
+
+所要時間：1分16秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    S =list(input())
+    S_set = set(S)
+    if len(S) == len(S_set):
+        print("yes")
+    else:
+        print("no")
+    
+main()
+```
+
+</details>
+
+
+## 32. Increment Decrement 
+
+https://atcoder.jp/contests/abc052/tasks/abc052_b
+
+所要時間：1分53秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    S = list(input())
+    x = 0
+    max_x = 0
+    for i in range(N):
+        if S[i] == "I":
+            x+=1
+        else:
+            x-=1
+        max_x = max(max_x, x)
+    
+    print(max_x)
+
+main()
+```
+
+</details>
+
+## 33. Postal Code
+
+https://atcoder.jp/contests/abc084/tasks/abc084_b
+
+所要時間：3分6秒
+
+<details><summary>解答コード</summary>
+
+```
+def main():
+    A, B = map(int, input().split())
+    S = list(input())
+    ans = True
+    for i in range(len(S)):
+        if i == A:
+            if S[i] != "-":
+                ans = False 
+            else:
+                continue 
+        else:
+            if S[i].isdigit():
+                continue
+            else:
+                ans = False
+    
+    if ans:
+        print("Yes")
+    else:
+        print("No")
+
+main()
+```
+</details>
+
+
+## 34. Coins 
+
+https://atcoder.jp/contests/abc087/tasks/abc087_b
+
+所要時間：2分
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    A = int(input())
+    B = int(input())
+    C = int(input())
+    X = int(input())
+
+    cnt = 0
+
+    for five_hundred in range(A+1):
+        for hundred in range(B+1):
+            for fifty in range(C+1):
+                if five_hundred*500+hundred*100+fifty*50==X:
+                    cnt += 1
+    
+    print(cnt)
+
+main()
+```
+
+</details>
+
+## 35. Not Found 
+
+https://atcoder.jp/contests/abc071/tasks/abc071_b
+
+
+<details><summary>ポイント</summary>
+
+アルファベット小文字のリストを持っておく。
+
+```python
+lowercase_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+```
+
+</details>
+<br>
+
+所要時間：5分41秒
+
+<details><summary>解答コード</summary>
+
+```python
+lowercase_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+
+def main():
+    S = set(list(input()))
+    lowercase_list_bool = [(False) for _ in range(26)]
+    for i in range(26):
+        if lowercase_list[i] in S:
+            lowercase_list_bool[i] = True
+    ans = None
+    for j in range(26):
+        if not lowercase_list_bool[j]: 
+            ans = lowercase_list[j]
+            return ans
+    
+    return ans 
+
+print(main())
+```
+
+</details>
+
+
+## 36 Prison 
+
+https://atcoder.jp/contests/abc127/tasks/abc127_c
+
+所要時間：6分23秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N, M = map(int, input().split())
+    max_l = 0
+    min_r = 10**18
+    for _ in range(M):
+        l, r = map(int, input().split())
+        max_l = max(max_l, l)
+        min_r = min(min_r, r)
+
+    if max_l > min_r:
+        print(0)
+    else:
+        print(min_r-max_l+1)
+
+main()
+```
+
+</details>
+
+## 37. Attack Survival 
+
+https://atcoder.jp/contests/abc141/tasks/abc141_c
+
+<details><summary>ポイント</summary>
+
+全員から1点引くのではなく正答者に1点を与える。
+
+</details>
+<br>
+
+所要時間：7分6秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N, K, Q = map(int, input().split())
+    players_point = [(K) for _ in range(N)]
+    for _ in range(Q):
+        a = int(input())
+        players_point[a-1] += 1
+    
+    for player in range(N):
+        if players_point[player] <= Q:
+            print("No")
+        else:
+            print("Yes")
+    
+main()
+```
+
+</details>
+
+
+
+## 38. Five Dishes 
+
+https://atcoder.jp/contests/abc123/tasks/abc123_b
+
+所要時間：10分25秒
+
+<details><summary>解答コード</summary>
+
+```python
+from math import ceil
+def main():
+    dish_list = []
+    for _ in range(5):
+        dish_list.append(int(input()))
+
+    mod_last_dish = min([(i-1)%10 for i in dish_list])
+
+    cnt = 0
+    had_last_meal = False
+
+    for i in range(5):
+        if (dish_list[i]-1)%10 == mod_last_dish and not had_last_meal:
+            cnt += dish_list[i]
+            had_last_meal = True
+        else:
+            cnt += ceil(dish_list[i]/10)*10
+    
+    print(cnt)
+
+main()
+```
+
+</details>
+
+## 39. Exception Handling 
+
+https://atcoder.jp/contests/abc134/tasks/abc134_c
+
+所要時間：4分6秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    A = []
+    for _ in range(N):
+        a = int(input())
+        A.append(a)
+    A_sorted = sorted(A, reverse = True)
+    for item in range(N):
+        if A[item] == A_sorted[0]:
+            print(A_sorted[1])
+        else:
+            print(A_sorted[0])
+
+main()
+```
+
+</details>
+
+
+## 40. Range Product 
+
+https://atcoder.jp/contests/agc002/tasks/agc002_a
+
+所要時間：2分59秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    a, b = map(int, input().split())
+    if a <= 0 <= b:
+        print("Zero")
+    elif a < 0:
+        cnt = 0
+        if b > 0:
+            cnt = abs(a)
+        else:
+            cnt = abs(a-b)+1
+        if cnt%2:
+            print("Negative")
+        else:
+            print("Positive")
+    else:
+        print("Positive")
+
+main()
+```
+
+</details>
+
+
+## 41. Low Elements 
+
+https://atcoder.jp/contests/abc152/tasks/abc152_c
+
+所要時間：5分8秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    P = list(map(int, input().split()))
+    min_p = P[0]
+    cnt = 0
+    for i in range(N):
+        if P[i] <= min_p:
+            cnt += 1
+            min_p = P[i]
+    
+    print(cnt)
+
+main()
+```
+
+</details>
+
+## 42. Foods Loved by Everyone 
+
+https://atcoder.jp/contests/abc118/tasks/abc118_b
+
+所要時間：3分35秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N, M = map(int, input().split())
+    foods_list = [(0) for _ in range(M+1)]
+    for _ in range(N):
+        a = list(map(int, input().split()))
+        for item in range(1, len(a)):
+            foods_list[a[item]] += 1
+    cnt = 0
+    for food in range(M+1):
+        if foods_list[food] == N:
+            cnt += 1
+    
+    print(cnt)
+
+main()
+```
+
+</details>
+
+## 43. Beautiful Strings
+
+https://atcoder.jp/contests/abc044/tasks/abc044_b
+
+<details><summary>ポイント</summary>
+
+Pythonでは`collections`の`Counter`クラスが使える。
+
+https://note.nkmk.me/python-collections-counter/
+
+</details>
+<br>
+
+所要時間：3分19秒
+
+<details><summary>解答コード</summary>
+
+```python
+from collections import Counter
+def main():
+    w = list(input())
+    c = Counter(w)
+    ans = True
+    for item in c.values():
+        if item%2:
+            ans = False
+    
+    if ans:
+        print("Yes")
+    else:
+        print("No")
+
+main()
+```
+
+</details>
+
+
+## 44. Coloring Colorfully 
+
+https://atcoder.jp/contests/abc124/tasks/abc124_c
+
+所要時間：4分1秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    S = [int(i) for i in list(input())]
+    odd = []
+    even = []
+    for idx in range(len(S)):
+        if idx%2:
+            odd.append(S[idx])
+        else:
+            even.append(S[idx])
+    
+    # if all even are to be black 
+    even_black = sum(even) + (len(odd)-sum(odd))
+    # if all odd are to be black
+    odd_black = sum(odd) + (len(even)-sum(even))
+
+    print(min(even_black, odd_black))
+
+main()
+```
+
+</details>
+
+## 45. Palindromic Numbers 
+
+https://atcoder.jp/contests/abc090/tasks/abc090_b
+
+所要時間：3分20秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    A, B = map(int, input().split())
+    cnt = 0
+    for i in range(A, B+1):
+        sentence = list(str(i))
+        if sentence == sentence[::-1]:
+            cnt += 1
+    print(cnt)
+
+main()
+```
+
+</details>
+
+
+## 46. Fairness 
+
+https://atcoder.jp/contests/agc024/tasks/agc024_a
+
+所要時間：4分35秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    A, B, C, K = map(int, input().split())
+    if K%2:
+        return (A-B)*(-1)
+    else:
+        return A-B
+
+print(main())
+```
+
+</details>
+
+## 47. Lucas Number 
+
+https://atcoder.jp/contests/abc079/tasks/abc079_b
+
+所要時間：4分53秒
+
+<details><summary>解答コード</summary>
+
+```python
+def check_lucas_number(n: int) -> int:    
+    lucas_number = [(0) for _ in range(87)]
+    for i in range(87):
+        if i == 0: 
+            lucas_number[i] = 2
+        elif i == 1:
+            lucas_number[i] = 1
+        else:
+            lucas_number[i] = lucas_number[i-2]+lucas_number[i-1]
+    
+    return lucas_number[n]
+
+def main():
+    N = int(input())
+    print(check_lucas_number(N))
+
+main()
+```
+
+</details>
+
+
+## 48. Lower 
+
+https://atcoder.jp/contests/abc139/tasks/abc139_c
+
+<details><summary>ポイント</summary>
+
+`N=1`のコーナーケースに注意。
+
+</details>
+<br>
+
+所要時間：7分53秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    H = list(map(int, input().split()))
+    ans_length = []
+
+    # Corner Case 
+    if N == 1:
+        return 0
+
+    cnt = 0
+    left = 0
+    right = 1
+    while True:
+        if H[left] >= H[right]:
+            cnt += 1
+            left += 1
+            right += 1
+        else:
+            ans_length.append(cnt)
+            cnt = 0
+            left +=1
+            right += 1
+        
+        if right == N:
+            ans_length.append(cnt)
+            break 
+    
+    return max(ans_length)
+
+
+print(main())
+```
+
+</details>
+
+
+## 49. Picture Frame 
+
+https://atcoder.jp/contests/abc062/tasks/abc062_b
+
+<details><summary>ポイント</summary>
+
+`list`型の前に`#`を挿入するのは`insert()`メソッドで可能だが、リスト内全要素をずらす（`O(N)`）ので制約には注意が必要。
+
+https://note.nkmk.me/python-list-append-extend-insert/#insert
+
+計算量を削減したい場合は`collections`モジュールの`deque`クラスから`appendleft()`が`O(1)`で使える。
+
+https://note.nkmk.me/python-collections-deque/
+
+文字列の結合には`join()`を使う。
+
+https://hibiki-press.tech/python/join/582
+
+</details>
+<br>
+
+所要時間：3分35秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    H, W = map(int, input().split())
+    ans = []
+    ans.append("#" for _ in range(W+2))
+    for _ in range(H):
+        a = list(input())
+        a.insert(0, "#")
+        a.append("#")
+        ans.append(a)
+    ans.append("#" for _ in range(W+2))
+
+    for i in range(len(ans)):
+        to_print = "".join(ans[i])
+        print(to_print)
+
+main()
+```
+
+</details>
+
+## 50. Comparison 
+
+https://atcoder.jp/contests/abc059/tasks/abc059_b
+
+
+<details><summary>ポイント</summary>
+
+Pythonは多倍長整数に対応しているのでこういう問題は楽。
+
+https://qiita.com/square1001/items/1aa12e04934b6e749962#2-1-%E3%83%97%E3%83%AD%E3%82%B0%E3%83%A9%E3%83%9F%E3%83%B3%E3%82%B0%E3%81%A7%E3%82%82%E5%A4%A7%E3%81%8D%E3%81%AA%E6%95%B0%E3%82%92%E6%89%B1%E3%81%84%E3%81%9F%E3%81%84
+
+</details>
+
+所要時間：46秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    A = int(input())
+    B = int(input())
+    if A > B:
+        print("GREATER")
+    elif A < B:
+        print("LESS")
+    else:
+        print("EQUAL")
+
+main()
+```
+
+</details>
+
+## 51. Some Sums 
+
+https://atcoder.jp/contests/abc083/tasks/abc083_b
+
+所要時間：2分5秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N, A, B = map(int, input().split())
+    ans = 0
+    for i in range(1, N+1):
+        str_num = str(i)
+        str_num_sum = sum([int(z) for z in list(str_num)])
+        if A <= str_num_sum <= B:
+            ans += i
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 52. Maximal Value 
+
+https://atcoder.jp/contests/abc140/tasks/abc140_c
+
+所要時間：5分46秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    B = list(map(int, input().split()))
+    A = [(0) for _ in range(N)]
+    for i in range(N):
+        if i == 0:
+            A[i] = B[0]
+        elif i == N-1:
+            A[i] = B[-1]
+        else:
+            A[i] = min(B[i], B[i-1])
+    
+    print(sum(A))
+
+main()
+```
+
+</details>
+
+## 53. Counting Roads 
+
+https://atcoder.jp/contests/abc061/tasks/abc061_b
+
+所要時間：2分10秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N, M = map(int, input().split())
+    roads = [[] for _ in range(N)]
+    for _ in range(M):
+        a, b = map(int, input().split())
+        roads[a-1].append(b-1)
+        roads[b-1].append(a-1)
+    for city in range(N):
+        print(len(roads[city]))
+
+main()
+```
+
+</details>
+
+## 54. Shiritori 
+
+https://atcoder.jp/contests/abc109/tasks/abc109_b
+
+所要時間：4分16秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    last_letter = 0
+    said_word = set()
+    for i in range(N):
+        w = str(input())
+        if i == 0:
+            last_letter = w[-1]
+            said_word.add(w)
+        else:
+            if last_letter == w[0] and w not in said_word:
+                last_letter = w[-1]
+                said_word.add(w)
+                continue 
+            else:
+                return False
+    
+    return True 
+
+if main():
+    print("Yes")
+else:
+    print("No")
+```
+
+</details>
+
+## 55. Good Distance 
+
+https://atcoder.jp/contests/abc133/tasks/abc133_b
+
+所要時間：5分49秒
+
+<details><summary>解答コード</summary>
+
+```python
+squared_number_set = set([n*n for n in range(1000)])
+
+def main():
+    N, D = map(int, input().split())
+    points = []
+    for _ in range(N):
+        x = list(map(int, input().split()))
+        points.append(x)
+    
+    cnt = 0
+    for y in range(N):
+        for z in range(y+1, N):
+            distance = 0
+            for d in range(D):
+                distance += (points[y][d] - points[z][d])**2
+            if distance in squared_number_set:
+                cnt += 1
+    
+    print(cnt)
+
+main()
+```
+</details>
+
+## 56. Small and Large Integers 
+
+https://atcoder.jp/contests/abc093/tasks/abc093_b
+
+所要時間：1分59秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    A, B, K = map(int, input().split())
+    for i in range(A, B+1):
+        if i <= A+K-1:
+            print(i)
+        elif i >= B-K+1:
+            print(i)
+
+main()
+```
+
+</details>
+
+## 57. Tax Increase 
+
+https://atcoder.jp/contests/abc158/tasks/abc158_c
+
+所要時間：5分50秒
+
+<details><summary>解答コード</summary>
+
+```python
+def original_price(price :int, tax: int) -> list:
+    p = int(price // (tax/100))
+    price_list = []
+    for possible_price in range(p-100, p+100):
+        if possible_price * tax // 100 == price:
+            price_list.append(possible_price)
+    return price_list
+
+def main():
+    A, B = map(int, input().split())
+    A_list= original_price(A, 8)
+    B_list = original_price(B, 10)
+    for price in A_list:
+        if price in set(B_list):
+            return price 
+    
+    return "-1"
+
+print(main())
+```
+
+</details>
+
+## 58. Palace 
+
+https://atcoder.jp/contests/abc113/tasks/abc113_b
+
+所要時間：8分4秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    T, A = map(int, input().split())
+    H = list(map(int, input().split()))
+    H_temp = [T-x*0.006 for x in H]
+    diff = -10**18
+    idx = 0
+    for i in range(N):
+        if abs(H_temp[i]-A) < abs(diff-A):
+            diff = H_temp[i]
+            idx = i
+    print(idx+1)
+
+main()
+```
+
+</details>
+
+## 59. AcCepted 
+
+https://atcoder.jp/contests/abc104/tasks/abc104_b
+
+所要時間：5分32秒
+
+<details><summary>解答コード</summary>
+
+```python
+
+def main():
+def main():
+    S = list(input())
+    
+    # first letter being "A"
+    if S[0] != "A":
+        return False 
+    
+
+    # having one "C"
+    if S[2:-1].count("C") != 1:
+        return False 
+    
+    for i in range(1, len(S)):
+        if S[i] == "C" and 2 <= i <= len(S)-2:
+            continue 
+        elif S[i].islower():
+            continue
+        else:
+            return False
+    
+    return True 
+
+if main():
+    print("AC")
+else:
+    print("WA")
+
+```
+
+</details>
+
+
+## 60. Contest with Drinks Easy 
+
+
+https://atcoder.jp/contests/abc050/tasks/abc050_b
+
+所要時間：3分30秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    T = list(map(int, input().split()))
+    M = int(input())
+    save = 10**18
+    for _ in range(M):
+        p, x = map(int, input().split())
+        print(sum(T)-(T[p-1]-x))
+
+main()
+```
+
+</details>
+
+
+## 61. String Rotation 
+
+https://atcoder.jp/contests/abc103/tasks/abc103_b
+
+
+所要時間：3分2秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    S = list(input())
+    T = list(input()) * 2
+
+    ans = False
+    for i in range(len(S)):
+        if T[i:i+len(S)] == S:
+            ans = True
+    
+    if ans:
+        print("Yes")
+    else:
+        print("No")
+
+main()
+```
+
+</details>
+
+
+## 62. Thin
+
+https://atcoder.jp/contests/abc049/tasks/abc049_b
+
+所要時間：1分36秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    H, W = map(int, input().split())
+    for _ in range(H):
+        c=input()
+        print(c)
+        print(c)
+
+main()
+```
+
+</details>
+
+## 63. Brick Break 
+
+https://atcoder.jp/contests/abc148/tasks/abc148_d
+
+所要時間：3分8秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    N = int(input())
+    a = list(map(int, input().split()))
+    idx = 1
+    cnt = 0
+    for i in range(N):
+        if a[i] == idx:
+            cnt += 1
+            idx += 1
+    
+    if cnt == 0:
+        print(-1)
+    else:
+        print(N-cnt)
+main()
+```
+
+</details>
+
+## 64. ∵∴∵
+
+https://atcoder.jp/contests/abc058/tasks/abc058_b
+
+所要時間：4分18秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    O = list(input())
+    E = list(input())
+    ans = ""
+    for i in range(len(O)+len(E)):
+        if i%2: 
+            ans += E[i//2]
+        else:
+            ans += O[i//2]
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 65. A to Z String
+
+https://atcoder.jp/contests/abc053/tasks/abc053_b
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    s = list(input())
+    start = 0
+    end = 0
+    for i in range(len(s)):
+        if s[i] == "A":
+            start = i
+            break 
+    for j in reversed(range(len(s))):
+        if s[j] == "Z":
+            end = j
+            break 
+    print(end-start+1)
+
+main()
+```
+
+</details>
+
+
+## 66. Wanna go back home 
+
+https://atcoder.jp/contests/agc003/tasks/agc003_a
+
+所要時間：3分26秒
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    S = list(input())
+    north = S.count("N")
+    south = S.count("S")
+    east = S.count("E")
+    west = S.count("W")
+
+    if not ((north>0 and south>0) or (north == south == 0)):
+        print("No")
+        return 
+    
+    if not ((west>0 and east>0) or (west==east==0)):
+        print("No")
+        return
+    
+    print("Yes")
+    return 
+
+main()
+```
+
+</details>
+
+## 67. Poll
+
+https://atcoder.jp/contests/abc155/tasks/abc155_c
+
+<details><summary>ポイント</summary>
+
+`collections`モジュールの`Counter`クラスには`most_common()`という要素と出現回数をソートして返してくれるメソッドが。
+
+https://qiita.com/ell/items/259388b511e24625c0d7
+
+</details>
+<br>
+
+所要時間：6分31秒
+
+<details><summary>解答コード</summary>
+
+```python
+from collections import Counter
+def main():
+    N = int(input())
+    S = []
+    for _ in range(N):
+        s = input()
+        S.append(s)
+    
+    S_counted = Counter(S)
+    S_counted_sorted = S_counted.most_common()
+
+    max_num = S_counted_sorted[0][1]
+    ans = sorted([i[0] for i in S_counted.items() if i[1] == max_num])
+
+    for i in ans:
+        print(i)
+
+main()
+```
+
+</details>
+
+## 68. Guidebook 
+
+https://atcoder.jp/contests/abc128/tasks/abc128_b
+
+<details><summary>ポイント</summary>
+
+多次元リストでの用いてのソートは`operator`の`itemgetter`が便利。
+
+https://qiita.com/t_kanno/items/13dd226e70d080159d97
+
+</details>
+
+所要時間：9分40秒
+
+<details><summary>ポイント</summary>
+
+```python
+from operator import itemgetter 
+
+def main():
+    N = int(input())
+    restaurant = []
+    for i in range(N):
+        s, p = map(str, input().split())
+        restaurant.append([i+1, s, int(p)])
+    
+    sorted_by_point = sorted(restaurant, key=itemgetter(2), reverse=True)
+    sorted_by_name = sorted(sorted_by_point, key=itemgetter(1))
+
+    for j in range(N):
+        print(sorted_by_name[j][0])
+main()
+```
+
+
+</details>
+
+## 69. Dividing a String 
+
+https://atcoder.jp/contests/agc037/tasks/agc037_a
+
+<details><summary>ポイント</summary>
+
+DPか工夫した貪欲で解けるらしい。1つだけ難易度違いすぎない？
+
+https://drken1215.hatenablog.com/entry/2020/11/11/164900
+
+https://betrue12.hateblo.jp/entry/2020/05/01/201510
+
+</details>
+
+<br>
+
+<details><summary>コード</summary>
+
+:::note warn
+追記
+貪欲で書いたが嘘解法っぽいのでまた検討する。
+:::
+
+```python
+
+def main():
+    S = input()
+
+    cnt = 0
+    curr = ""
+    prev = ""
+
+    for i in range(len(S)):
+        curr += S[i]
+        if prev != curr:
+            cnt += 1
+            prev = curr
+            curr = ""
+    print(cnt)
+
+main()
+```
+
+</details>
+
+
+## 70. 100 to 105
+
+https://atcoder.jp/contests/sumitrust2019/tasks/sumitb2019_c
+
+<details><summary>解答コード</summary>
+
+```python
+def main():
+    X = int(input())
+
+    dp = [(0) for _ in range(X+1)]
+    dp[0] = 1
+
+    for i in range(X+1):
+        if dp[i]:
+            for j in range(100, 106):
+                if i+j <= X:
+                    dp[i+j] = 1
+    
+    print(dp[X])
 
 main()
 ```
