@@ -1,4 +1,22 @@
 
+# はじめに
+
+Boot Camp for Beginners の問題をPythonで解きました。(１週間で全部解ききりました…がんばった！)
+
+Boot Camp for Beginners には AtCoder Problems の Traning ページからアクセスできます。
+
+https://kenkoooo.com/atcoder/#/training
+
+解くのにかかった時間に加え、何か調べたことや特筆しておきたい点があった場合はその旨ポイントに記載しています。
+
+
+また、全てのコードはGitHub上に公開されています。
+
+https://github.com/fairy-pitta/CompetitiveProgramming/tree/main/Daily_Practice/BootCampforBeginners
+
+
+# Boot Camp for Beginners
+
 ## 1. Power Socket
 
 https://atcoder.jp/contests/abc139/tasks/abc139_b
@@ -3206,7 +3224,7 @@ https://atcoder.jp/contests/code-festival-2016-quala/tasks/codefestival_2016_qua
 
 所要時間：2分38秒
 
-<detail><summary>解答コード</summary>
+<details><summary>解答コード</summary>
 
 ```python
 def main():
@@ -3224,4 +3242,4 @@ def main():
 main()
 ```
 
-</detail>
+</details>
