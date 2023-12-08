@@ -355,4 +355,12 @@ main()
 
 ## 動的計画法（３）ナップサック問題
 
+<details><summary>コード</summary>
+
+```python
+map(int, input().split())
+```
+ 
+</details>
+
 
