@@ -724,3 +724,1044 @@ main()
 
 https://atcoder.jp/contests/abc073/tasks/abc073_c
 
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict 
+from operator import mul
+from functools import reduce
+
+def cmb(n,r):
+    if n <= 1: return 0 
+    r = min(n-r,r)
+    if r == 0: return 1
+    over = reduce(mul, range(n, n - r, -1))
+    under = reduce(mul, range(1,r + 1))
+    return over // under
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    d = defaultdict(int)
+
+    for i in A:
+        d[i] += 1
+    
+    cnt = 0
+    for v in d.values():
+        if v >= 2:
+            cnt += cmb(v, 2)
+    
+    for j in A:
+        # print(j, 'j', cnt, d[j])
+        ans = cnt
+        if d[j] >= 3:
+            ans -= cmb(d[j], 2)
+            ans += cmb(d[j]-1, 2)
+        elif d[j] == 2:
+            ans -= 1
+        print(ans)
+
+main()
+
+
+
+```
+
+</details>
+
+
+## 021. Banned K
+
+https://atcoder.jp/contests/abc159/tasks/abc159_d
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict 
+from operator import mul
+from functools import reduce
+
+def cmb(n,r):
+    if n <= 1: return 0 
+    r = min(n-r,r)
+    if r == 0: return 1
+    over = reduce(mul, range(n, n - r, -1))
+    under = reduce(mul, range(1,r + 1))
+    return over // under
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    d = defaultdict(int)
+
+    for i in A:
+        d[i] += 1
+    
+    cnt = 0
+    for v in d.values():
+        if v >= 2:
+            cnt += cmb(v, 2)
+    
+    for j in A:
+        # print(j, 'j', cnt, d[j])
+        ans = cnt
+        if d[j] >= 3:
+            ans -= cmb(d[j], 2)
+            ans += cmb(d[j]-1, 2)
+        elif d[j] == 2:
+            ans -= 1
+        print(ans)
+
+main()
+
+
+
+```
+
+</details>
+
+## 022. Dice and Coin 
+
+https://atcoder.jp/contests/abc126/tasks/abc126_c
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, K = map(int, input().split())
+
+    prob = 0
+
+    for i in range(1, N+1):
+
+        cnt = 0
+        n = i
+        while True:
+            if n < K:
+                n *= 2 
+                cnt += 1
+            else:
+                break 
+        
+        prob += (1/N) * (1/2) ** cnt
+    
+    print(prob)
+
+main()
+
+```
+
+</details>
+
+
+## 023. Guess The Number 
+
+https://atcoder.jp/contests/abc157/tasks/abc157_c
+
+<details><summary>供養</summary>
+
+馬鹿正直に書いたが一つWAが取れなくてわからないので供養する
+
+```python
+def main():
+    N, M = map(int, input().split())
+    num = [(-1) for _ in range(N)]
+    for _ in range(M):
+        s, c = map(int, input().split())
+        if num[s-1] == -1 or num[s-1] == c:
+            num[s-1] = c
+        else:
+            print(-1)
+            return 
+    
+    if N == 1 and num[0] == 0:
+        print(0)
+        return 
+    
+    for i in range(N):
+        if i == 0:
+            if num[0] == -1:
+                num[0] = 1
+            elif num[0] == 0:
+                print(-1)
+                return
+        else:
+            if num[i] == -1:
+                num[i] = 0
+    
+    print("".join([str(z) for z in num]))
+    return 
+
+main()
+           
+```
+
+</details>
+
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, M = map(int, input().split())
+    S = [list(map(int, input().split())) for _ in range(M)]
+    start_N = [0, 10, 100]
+
+    for i in range(start_N[N-1], 10**N):
+        num = list(str(i))
+        flag = True
+        for j in range(M):
+            s, c = S[j][0], S[j][1]
+            if num[s-1] != str(c):
+                flag = False
+                break
+        if flag:
+            print(i)
+            return
+    
+    print(-1)
+    return
+
+main()      
+```
+
+</details>
+
+
+## 024. A+...+B Problem
+
+https://atcoder.jp/contests/agc015/tasks/agc015_a
+
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, A, B = map(int, input().split())
+
+    # check A < B
+    if A > B:
+        print(0)
+        return 
+    
+    min_sum = (N-1)*A+B
+    max_sum = (N-1)*B+A
+    print(max_sum-min_sum+1 if (max_sum-min_sum) >= 0 else 0)
+    return
+
+main()
+```
+
+</details>
+
+
+## 025. Not so Diverse 
+
+https://atcoder.jp/contests/abc081/tasks/arc086_a
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict
+
+def main():
+    N, K = map(int, input().split())
+    A = list(map(int, input().split()))
+    d = defaultdict(int)
+    for i in A:
+        d[i] += 1 
+    value_list = sorted(list(d.values()), reverse=True)
+    ans = 0
+    for j in range(len(value_list)):
+        if j >= K:
+            ans += value_list[j]
+    
+    print(ans)
+
+main()
+
+
+```
+
+</details>
+
+
+## 026. Sorted Arrays 
+
+https://atcoder.jp/contests/agc013/tasks/agc013_a
+
+
+<details><summary>コード</summary>
+
+```python
+# 尺取り
+
+from collections import deque
+def main():
+    N = int(input())
+    A = deque(list(map(int, input().split())))
+
+    que = deque([])
+    flag = 0 # 0: Undetermined, 1: Increasing, 2: Decreasing 
+    cnt = 0
+
+    cur = A.popleft()
+
+    while True:
+
+        if len(A) == 0:
+            break
+
+        next = A.popleft()
+
+        if flag == 0: # Undetermined 
+            if cur < next: # incresing 
+                flag = 1 
+                que.append(cur)
+                cur = next
+            elif cur == next:
+                que.append(cur)
+                cur = next 
+            else:
+                # cur > next # decresing 
+                flag = 2
+                que.append(cur)
+                cur = next 
+        
+        elif flag == 1: # increasing 
+            if cur <= next: # increasing 
+                que.append(cur)
+                cur = next
+            else:
+                cnt += 1
+                que.append(cur)
+                cur = next
+                flag = 0
+        
+        else:
+            # flag == 2 decreasing 
+            if cur >= next: 
+                que.append(cur)
+                cur = next
+            else:
+                cnt += 1
+                que.append(cur)
+                cur = next
+                flag = 0
+
+    print(cnt+1)
+
+main()
+```
+
+</details>
+
+
+## 027. Prefix and Suffix 
+
+
+https://atcoder.jp/contests/agc006/tasks/agc006_a
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N = int(input())
+    s = list(input())
+    t = list(input())
+
+    cnt = 0
+    for i in range(N):
+        if s[i:] == t[:N-i]:
+            cnt = max(cnt, len(s[i:]))
+    
+    print(2*N-cnt)
+
+main()
+
+```
+
+</details>
+
+## 028. Dice in Line 
+
+
+https://atcoder.jp/contests/abc154/tasks/abc154_d
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, K = map(int, input().split())
+    P = list(map(int, input().split()))
+    Q = [0]
+    for i in range(N):
+        Q.append(Q[i]+P[i])
+
+    s = 0
+    for i in range(1, N-K+2):
+        temp = Q[i+K-1] - Q[i-1]
+        s = max(s, temp)
+
+    
+    print((s+K) / 2)
+    
+main()
+
+```
+
+</details>
+
+## 029. Two Anagrams 
+
+https://atcoder.jp/contests/abc082/tasks/abc082_b
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    s = "".join(sorted(list(input())))
+    t = "".join(sorted(list(input()), reverse=True))
+
+    if s < t:
+        print("Yes")
+    else:
+        print("No")
+
+
+main()
+```
+
+</details>
+
+
+## 030. Flip, Flip, and Flip...
+
+https://atcoder.jp/contests/abc090/tasks/arc091_a
+
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, M = map(int, input().split())
+
+    if N==M==1:
+        print(1)
+    elif N==1 or M==1:
+        print(max(N,M)-2)
+    else:
+        print((N-2)*(M-2))
+
+main()
+```
+
+</details>
+
+
+## 0031. 4-adjacent 
+
+https://atcoder.jp/contests/abc069/tasks/arc080_a
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    odd = 0
+    four = 0
+    even = 0
+
+    for i in A:
+        if i % 4 == 0:
+            four += 1
+        elif i % 2 == 1:
+            odd += 1
+        else:
+            even += 1
+    
+    if four >= odd:
+        print("Yes")
+    elif four == odd-1 and even == 0:
+        print("Yes")
+    else:
+        print("No")
+main()
+```
+
+</details>
+
+
+## 032. Otoshidama 
+
+https://atcoder.jp/contests/abc085/tasks/abc085_c
+
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N,Y = map(int, input().split())
+
+    for i in range(N+1):
+        for j in range(N+1):
+            if N-i-j >= 0 and 10000*i+5000*j+1000*(N-i-j) == Y:
+                print(i, j, N-i-j)
+                return 
+    
+    print(-1, -1, -1)
+    return 
+
+main()
+```
+
+</details>
+
+## 032. Unhappy Hacking (ABC Edit)
+
+https://atcoder.jp/contests/abc043/tasks/abc043_b
+
+<details><summary>コード</summary>
+
+```python
+from collections import deque
+
+def main():
+    S = list(input())
+    A = deque([])
+
+    for i in S:
+        if i == "0":
+            A.append("0")
+        elif i == "1":
+            A.append("1")
+        else:
+            if len(A) > 0:
+                A.pop()
+            else:
+                continue
+    
+    ans = "".join(list(A))
+    print(ans)
+
+main()
+```
+
+</details>
+
+
+## 034. Minimization 
+
+https://atcoder.jp/contests/abc101/tasks/arc099_a
+
+
+<details><summary>コード</summary>
+
+```python
+def my_ceil(N, W):
+    return (-(-N//W))
+
+def main():
+    N, K = map(int, input().split())
+    A = list(map(int, input().split()))
+
+    ans = my_ceil(N-1, K-1)
+    print(ans)
+
+main()
+
+```
+
+</details>
+
+## 035. Anti-Division 
+
+https://atcoder.jp/contests/abc131/tasks/abc131_c
+
+<details><summary>コード</summary>
+
+```python
+import math 
+def my_lcm(x, y):
+    return (x * y) // math.gcd(x, y)
+
+def main():
+    A, B, C, D = map(int, input().split())
+    cd = my_lcm(C, D)
+    less_A = A-1
+
+    a_num = (less_A//C) + (less_A//D) - (less_A//cd)
+    b_num = (B//C) + (B//D) - (B//cd)
+
+    
+    print(B-A+1-b_num+a_num)
+
+main()
+```
+
+</details>
+
+## 036. Skip 
+
+https://atcoder.jp/contests/abc109/tasks/abc109_c
+
+<details><summary>ポイント</summary>
+
+リストの全要素の最大公約数が`functools`の`reduce`関数を使うと簡単に求められるようです。
+
+[参考ブログ](https://flytech.work/blog/21511/)
+
+</details>
+
+
+<details><summary>コード</summary>
+
+```python
+from math import gcd
+from functools import reduce 
+
+def main():
+    N, X = map(int, input().split())
+    x = list(map(int, input().split()))
+    x.append(X)
+    x = sorted(x)
+    gap = []
+    ans = 0
+    for i in range(1, len(x)):
+        gap.append(x[i]-x[i-1])
+
+    ans = reduce(gcd, gap)
+
+    print(ans)
+
+main()
+```
+
+</details>
+
+
+
+## 037. Grand Garden 
+
+https://atcoder.jp/contests/abc116/tasks/abc116_c
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N = int(input())
+    h = list(map(int, input().split()))
+
+    h.insert(0,0)
+    h.append(0)
+
+    cnt = 0
+    for i in range(1, len(h)):
+        cnt += abs(h[i]-h[i-1])
+    
+    print(cnt // 2)
+
+main()
+```
+
+</details>
+
+## 038. Problem Set
+
+https://atcoder.jp/contests/code-festival-2017-qualb/tasks/code_festival_2017_qualb_b
+
+
+<details><summary>ポイント</summary>
+
+`sortedcontainers`を使うととてもシンプルに実装できます。
+
+[参考記事](https://qiita.com/Shirotsume/items/706742162db68c481c3c)
+
+</details>
+
+<details><summary>コード</summary>
+
+```python
+from sortedcontainers import SortedSet, SortedList, SortedDict
+
+def main():
+    N = int(input())
+    D = list(map(int, input().split()))
+    M = int(input())
+    T = list(map(int, input().split()))
+
+    S = SortedList(D)
+
+    for i in range(M):
+        if T[i] in S:
+            S.discard(T[i])
+        else:
+            print("NO")
+            return 
+    
+    print("YES")
+    return 
+
+main()  
+```
+
+</details>
+
+
+## 039. When I hit my pocket...
+
+https://atcoder.jp/contests/yahoo-procon2019-qual/tasks/yahoo_procon2019_qual_c
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    K, A, B = map(int, input().split())
+
+    if A >= B-2:
+        print(K+1)
+    else:
+        if K + 1 >= A:
+            print(((K-A+1)//2) * (B-A) + (A+(K-A+1-(K-A+1)//2*2) if (K-A+1)%2 != 0 else A))
+        else:
+            print(K+1)
+            
+
+main()
+```
+
+</details>
+
+## 040. Streamline 
+
+https://atcoder.jp/contests/abc117/tasks/abc117_c
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N, M = map(int, input().split())
+    X = sorted(list(map(int, input().split())))
+
+    gap = []
+    for i in range(1, M):
+        gap.append(abs(X[i]-X[i-1]))
+    
+    if N >= M:
+        print(0)
+    else:
+        ans = 0
+        gap = sorted(gap)
+        for i in range(M-N):
+            ans += gap[i]
+        
+        print(ans)
+
+
+main()
+```
+
+</details>
+
+## 041. Shrinking 
+
+https://atcoder.jp/contests/agc016/tasks/agc016_a
+
+解説AC
+
+
+<details><summary>コード</summary>
+
+```python
+
+```
+
+</details>
+
+
+
+## 042. Evilator 
+
+https://atcoder.jp/contests/agc015/tasks/agc015_b
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    S = input()
+    ans = 0
+    for i in range(len(S)):
+        if S[i] == "U":
+            # going up
+            ans += len(S)-(i+1)
+            # going down
+            ans += 2 * i
+        else:
+            # going up
+            ans += 2 * (len(S)-(i+1))
+            ans += i
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 043. Go Home 
+
+https://atcoder.jp/contests/abc056/tasks/arc070_a
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    X = abs(int(input()))
+    i = 0
+
+    while True:
+        if (0+i) * (i-0+1) // 2 >= X:
+            break 
+        i += 1
+    
+    print(i)
+
+main()
+
+
+```
+
+</details>
+
+## 044. pushpush
+
+https://atcoder.jp/contests/abc066/tasks/arc077_a
+
+<details><summary>コード</summary>
+
+```python
+from collections import deque
+
+def main():
+    n = int(input())
+    a = list(map(int, input().split()))
+    b = deque([])
+
+    if n % 2 == 0:
+        for i in range(n):
+            if i % 2 == 0:
+                b.append(a[i])
+            else:
+                b.appendleft(a[i])
+    else:
+        for i in range(n):
+            if i % 2 == 0:
+                b.appendleft(a[i])
+            else:
+                b.append(a[i])
+    
+    print(*b)
+
+main()
+```
+
+</details>
+
+## 045. Scc puzzle 
+
+https://atcoder.jp/contests/abc055/tasks/arc069_a
+
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, M = map(int, input().split())
+    ans = 0
+
+    if N*2 <= M:
+        ans += N
+        M -= N*2
+    else:
+        print(M//2)
+        return 
+    
+    ans += M//4
+
+    print(ans)
+
+main()
+```
+
+</details>
+
+
+## 046. Palindrome-phobia 
+
+https://atcoder.jp/contests/cf17-final/tasks/cf17_final_b
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    S = input()
+    a = S.count('a')
+    b = S.count('b')
+    c = S.count('c')
+
+    if abs(a-b) <= 1 and abs(b-c) <= 1 and abs(a-c) <= 1:
+        print("YES")
+    else:
+        print("NO")
+
+main()
+
+```
+
+</details>
+
+
+## 047. Biscuits 
+
+https://atcoder.jp/contests/agc017/tasks/agc017_a
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N, P = map(int, input().split())
+    A = list(map(int, input().split()))
+
+    odd = 0
+    even = 0
+
+    for i in range(N):
+        if A[i] % 2:
+            odd += 1
+        else:
+            even += 1
+    
+    if odd == 0:
+        if P == 1:
+            print(0)
+        else:
+            print(2**even)
+    else: # 奇数が含まれている
+        print(2**(N-1))
+
+main()
+
+
+```
+
+</details>
+
+
+## 048. Rectangle Cutting 
+
+https://atcoder.jp/contests/abc130/tasks/abc130_c
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    W, H, x, y = map(int, input().split())
+
+    if x*2 == W and y*2 == H:
+        print(H*W/2, 1)
+    else:
+        print(H*W/2, 0)
+
+main()
+```
+
+</details>
+
+## 049. Make a Rectangle 
+
+https://atcoder.jp/contests/abc071/tasks/arc081_a
+
+<details><summary>コード</summary>
+
+```python
+from collections import Counter
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    C = sorted(Counter(A).items(), reverse=True)
+    ans = []
+    for i in C:
+        if i[1] >= 4:
+            ans.append(i[0])
+            ans.append(i[0])
+        elif i[1] >= 2:
+            ans.append(i[0])
+    
+    if len(ans) < 2:
+        print(0)
+    else:
+        print(ans[0]*ans[1])
+
+main()
+```
+
+</details>
+
+
+## 050. Remainder Minimization 2019 
+
+https://atcoder.jp/contests/abc133/tasks/abc133_c
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    L, R = map(int, input().split())
+
+    if R-L >= 2019:
+        return 0
+    
+    l = L%2019
+    r = R%2019
+
+    if l >= r:
+        return 0
+    else:
+        mod_set = set()
+        for i in range(l, r+1):
+            mod_set.add(i)
+        
+        if 0 in mod_set:
+            return 0
+        else:
+            ans = 2019
+            mod_set = list(mod_set)
+            for j in range(len(mod_set)):
+                for k in range(j+1, len(mod_set)):
+                    ans = min(ans, (mod_set[j]*mod_set[k])%2019)
+            
+            return ans
+        
+print(main())
+```
+
+</details>
