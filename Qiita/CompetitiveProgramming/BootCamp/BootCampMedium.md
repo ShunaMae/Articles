@@ -1168,7 +1168,7 @@ main()
 </details>
 
 
-## 0031. 4-adjacent 
+## 031. 4-adjacent 
 
 https://atcoder.jp/contests/abc069/tasks/arc080_a
 
@@ -1762,6 +1762,728 @@ def main():
             return ans
         
 print(main())
+```
+
+</details>
+
+## 051. Many Medians
+
+https://atcoder.jp/contests/abc094/tasks/arc095_a
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N = int(input())
+    X = list(map(int, input().split()))
+
+    li = []
+    for i in range(N):
+        li.append([X[i], i])
+    
+    li = sorted(li)
+    ans = [(0) for _ in range(N)]
+
+    for j in range(N):
+        if j < N//2:
+            ans[li[j][1]] = li[N//2][0]
+        else:
+            ans[li[j][1]] = li[N//2-1][0]
+    
+    for k in ans:
+        print(k)
+
+main()
+
+
+```
+
+</details>
+
+
+## 052. Megalomania
+
+https://atcoder.jp/contests/abc131/tasks/abc131_d
+
+<details><summary>コード</summary>
+
+```python
+from operator import itemgetter 
+from collections import deque
+
+def main():
+    N = int(input())
+    W = []
+    for _ in range(N):
+        a, b = map(int, input().split())
+        W.append((a,b))
+    
+    W = deque(sorted(W, key=itemgetter(1,0)))
+    cur, limit = W.popleft()
+
+    while True:
+
+        if len(W) == 0:
+            break
+
+        if cur <= limit:
+            next_task, next_limit = W.popleft()
+            cur += next_task
+            limit = next_limit
+        else:
+            break
+    
+    if cur > limit:
+        print("No")
+    elif len(W) > 0:
+        print("No")
+    else:
+        print("Yes")
+
+
+main()
+    
+
+```
+
+</details>
+
+## 053. Travelling Plan 
+
+https://atcoder.jp/contests/abc092/tasks/arc093_a
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    # 出発地点を追加
+    A.insert(0,0)
+    # 最終地点を追加
+    A.append(0)
+
+    total_dist = 0
+    for j in range(1, len(A)):
+        total_dist += abs(A[j]-A[j-1])
+    
+    for i in range(1, len(A)-1):
+        prev = A[i-1]
+        cur = A[i]
+        nex = A[i+1]
+        ans = total_dist - abs(cur-prev) - abs(nex-cur)
+        ans += abs(nex-prev)
+        print(ans)
+            
+
+main()
+```
+
+</details>
+
+
+## 054. Airport Bus 
+
+https://atcoder.jp/contests/agc011/tasks/agc011_a
+
+<details><summary>コード</summary>
+
+```python
+from bisect import bisect_right 
+
+def main():
+    N, C, K = map(int, input().split())
+    time = []
+    for i in range(N):
+        t = int(input())
+        time.append(t)
+    
+    time = sorted(time)
+    p = 0
+    bus_cnt = 0
+
+    while p < N: # while there are still people
+        arrival = time[p]
+        cap = 0
+        while p < N and time[p] <= arrival+K and cap < C:
+            cap += 1
+            p += 1
+        bus_cnt += 1
+    
+    print(bus_cnt)
+
+main()
+```
+
+</details>
+
+
+## 055. Cat Snuke and a Voyage 
+
+https://atcoder.jp/contests/abc068/tasks/arc079_a
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N, M = map(int, input().split())
+    graph = [set() for _ in range(N+1)]
+    for _ in range(M):
+        a, b = map(int, input().split())
+        graph[a].add(b)
+        graph[b].add(a)
+
+    for i in graph[1]:
+        if N in graph[i]:
+            print("POSSIBLE")
+            return
+    
+    print("IMPOSSIBLE")
+    return
+
+main()
+```
+
+</details>
+
+## 056. Subarray Sum
+
+https://atcoder.jp/contests/keyence2020/tasks/keyence2020_c
+
+<details><summary>ポイント</summary>
+
+どうやって和がSの数列を作るのかではなく、どうやって和がSの数列を必要以上に作らないかがミソ。
+
+</details>
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N, K, S = map(int, input().split())
+
+    if S == 10**9:
+        ans = [(10**9) for _ in range(K)] + [(1) for _ in range(N-K)]
+    else:
+        ans = [(S) for _ in range(K)] + [(10**9) for _ in range(N-K)]
+    
+    print(*ans)
+
+main()
+```
+
+</details>
+
+
+## 057. Green Bin 
+
+https://atcoder.jp/contests/abc137/tasks/abc137_c
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict
+from operator import mul
+from functools import reduce
+
+def cmb(n,r):
+    if n <= 1: return 0
+    r = min(n-r,r)
+    if r == 0: return 1
+    nume = reduce(mul, range(n, n - r, -1))
+    denom = reduce(mul, range(1, r + 1))
+    return nume // denom
+
+def main():
+    N = int(input())
+    d = defaultdict(int)
+
+    for _ in range(N):
+        s = sorted(list(input()))
+        s = "".join(s)
+        d[s] += 1 
+    
+    ans = 0
+    for v in d.values():
+        if v >= 2:
+            ans += cmb(v, 2)
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 058. Kenken Race
+
+https://atcoder.jp/contests/agc034/tasks/agc034_a
+
+<details><summary>ポイント</summary>
+
+19WAも積んだ。やばい。すぬけ君がふぬけ君を追い越す場合、空白地帯が三連続している必要があるのだが、それの存在可能範囲はB-Dの区間になる。しかしB-Dと単純な設定ではなくもう少し考えなければだめで、そこでWAを積みまくった。
+
+</details>
+
+
+<details><summary>コード</summary>
+
+```python
+
+
+def main():
+    N, A, B, C, D = map(int, input().split())
+    S = list(input())
+    A -= 1
+    B -= 1
+    C -= 1
+    D -= 1
+
+    for i in range(A, max(C,D)):
+        if (A < i < C or B < i < D) and S[i] == S[i+1] == "#":
+            return False
+        
+    if C < D:
+        return True
+    
+    else:
+        for j in range(B-1, D):
+            if S[j] == S[j+1] == S[j+2] == ".":
+                return True
+        
+    
+    return False
+
+
+if main():
+    print("Yes")
+else:
+    print("No")
+
+
+```
+
+</details>
+
+## 059. Derangement 
+
+https://atcoder.jp/contests/abc072/tasks/arc082_b
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N = int(input())
+    p = list(map(int, input().split()))
+    cnt = 0
+    for i in range(N-1):
+        if p[i] != i+1:
+            continue
+        p[i], p[i+1] = p[i+1], p[i]
+        cnt += 1
+    
+    if p[-1] == N:
+        cnt += 1
+        
+    print(cnt)
+
+main()
+
+```
+
+</details>
+
+## 060. March 
+
+https://atcoder.jp/contests/abc089/tasks/abc089_c
+
+<details><summary>コード</summary>
+
+```python
+
+from collections import defaultdict
+from itertools import combinations
+
+def main():
+    N = int(input())
+    d = defaultdict(int)
+    for _ in range(N):
+        s = input()
+        d[s[0]] += 1
+    
+    letters = ["M", "A", "R", "C", "H"]
+    letters_cmb = list(combinations(letters, 3))
+
+    ans = 0
+    for c in letters_cmb:
+        if d[c[0]] > 0 and d[c[1]] > 0 and d[c[2]] > 0:
+            ans += d[c[0]] * d[c[1]] * d[c[2]]
+    
+    print(ans)
+
+main()
+
+
+```
+
+</details>
+
+## 061. String Formation 
+
+https://atcoder.jp/contests/abc158/tasks/abc158_d
+
+<details><summary>コード</summary>
+
+```python
+from collections import deque 
+
+def main():
+    S = deque(input())
+    Q = int(input())
+    isreversed = False
+    for _ in range(Q):
+        t = list(map(str, input().split()))
+        if t[0] == "1":
+            isreversed = not isreversed 
+        else:
+            if t[1] == "1":
+                if isreversed:
+                    S.append(t[2])
+                else:
+                    S.appendleft(t[2])
+            else:
+                if isreversed:
+                    S.appendleft(t[2])
+                else:
+                    S.append(t[2])
+
+    ans = "".join(list(S)[::-1] if isreversed else list(S))
+    print(ans)
+
+main()
+
+```
+
+</details>
+
+## 062. Monsters Battle Royale 
+
+https://atcoder.jp/contests/abc118/tasks/abc118_c
+
+<details><summary>コード</summary>
+
+```python
+from math import gcd
+from functools import reduce
+
+def main():
+    N = int(input())
+    A = sorted(list(map(int, input().split())))
+    ans = reduce(gcd, A)
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 063. Snuke's Coloring 2 (ABC Edit)
+
+https://atcoder.jp/contests/abc047/tasks/abc047_b
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    W, H, N = map(int, input().split())
+    x_upper = W
+    x_lower = 0
+    y_upper = H
+    y_lower = 0
+
+    for _ in range(N):
+        x, y, a = map(int, input().split())
+        if a == 1:
+            x_lower = max(x_lower, x)
+        elif a == 2:
+            x_upper = min(x_upper, x)
+        elif a == 3:
+            y_lower = max(y_lower, y)
+        else:
+            y_upper = min(y_upper, y)
+    
+    # print(x_upper, x_lower, y_upper, y_lower)
+    x_range = r if (r := x_upper - x_lower) > 0 else 0
+    y_domain = d if (d := y_upper - y_lower) > 0 else 0
+
+    print(x_range*y_domain)
+
+
+main()
+```
+
+</details>
+
+## 064. Good Sequence 
+
+
+https://atcoder.jp/contests/abc082/tasks/arc087_a
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict
+
+def main():
+    N = int(input())
+    a = list(map(int, input().split()))
+    d = defaultdict(int)
+    for i in a:
+        d[i] += 1
+    
+    cnt = 0
+    for k, v in d.items():
+        if v >= k:
+            cnt += (v-k)
+        else:
+            cnt += v
+    
+    print(cnt)
+
+main()
+
+```
+
+</details>
+
+## 065. Two Abbreviations 
+
+https://atcoder.jp/contests/agc028/tasks/agc028_a
+
+<details><summary>コード</summary>
+
+```python
+from math import lcm
+
+def main():
+    n, m = map(int, input().split())
+    s = input()
+    t = input()
+    l = lcm(n,m)
+    div_n = l // n
+    div_m = l // m
+    r = lcm(div_n, div_m)
+    time_n = r // div_n
+    time_m = r // div_m
+
+    ncur = 0
+    mcur = 0
+    flag = True
+    while True:
+        if ncur*div_n+1 > l or mcur*div_m+1 > l:
+            break 
+
+        if s[ncur] != t[mcur]:
+            flag = False
+            break
+        ncur += time_n
+        mcur += time_m
+    
+    if flag:
+        print(l)
+    else:
+        print(-1)
+
+main()
+
+
+```
+
+</details>
+
+## 066. Multiple Array 
+
+https://atcoder.jp/contests/agc009/tasks/agc009_a
+
+<details><summary>コード</summary>
+
+```python
+from math import ceil 
+
+def main():
+    N = int(input())
+    A = []
+    B = []
+    for _ in range(N):
+        a, b = map(int, input().split())
+        A.append(a)
+        B.append(b)
+    
+    cnt = 0
+    for i in reversed(range(N)):
+        A[i] += cnt
+        if A[i]%B[i] == 0:
+            continue
+
+        diff = B[i] - (A[i]%B[i])
+        cnt += diff
+
+    print(cnt)
+
+main()
+```
+
+</details>
+
+
+## 067. Card Game for Three (ABC Edit) 
+
+https://atcoder.jp/contests/abc045/tasks/abc045_b
+
+<details><summary>コード</summary>
+
+```python
+from collections import deque
+
+def main():
+    A = deque(list(input()))
+    B = deque(list(input()))
+    C = deque(list(input()))
+
+    winner = ""
+    next = "a"
+
+    while True:
+
+        if next == "a":
+            if len(A) == 0:
+                winner = "A"
+                break 
+            next = A.popleft()
+
+        elif next == "b":
+            if len(B) == 0:
+                winner = "B"
+                break 
+            next = B.popleft()
+
+        else:
+            if len(C) == 0:
+                winner = "C"
+                break 
+            next = C.popleft()
+
+    print(winner)
+
+main()
+            
+
+
+```
+
+</details>  
+
+## 068. Shik and Stone 
+
+
+https://atcoder.jp/contests/agc007/tasks/agc007_a
+
+<details><summary>ポイント</summary>
+
+常に右か下に動き続ける場合はどのルートを通っても通るタイルの数は一定。
+
+</details>
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    H, W = map(int, input().split())
+    cnt = 0
+    for _ in range(H):
+        a = input()
+        cnt += a.count("#")
+    
+    if cnt == (H+W-1):
+        print("Possible")
+    else:
+        print("Impossible")
+
+main()
+```
+
+</details>
+
+
+## 069. Five Transportations 
+
+
+https://atcoder.jp/contests/abc123/tasks/abc123_c
+
+<details><summary>ポイント</summary>
+
+ボトルネック地点を全員が通過するのにかかる時間だけ考えればよい。
+
+</details>
+
+
+<details><summary>コード</summary>
+
+```python
+from math import ceil
+
+def main():
+    N = int(input())
+    T = [int(input()) for _ in range(5)]
+    cnt = 4 + ceil(N/min(T))
+    print(cnt)
+
+main()
+```
+
+</details>
+
+
+## 070. Simple Calculator 
+
+https://atcoder.jp/contests/agc008/tasks/agc008_a
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    x, y = map(int, input().split())
+    xm = -x
+    ans = 10**18
+
+    if x + abs(x-y) == y:
+        ans = min(ans, abs(x-y))
+    if -(x + abs(x-y)) == y:
+        ans = min(ans, abs(x-y)+1)
+    if -x + abs(x-y) == y:
+        ans = min(ans, abs(x-y)+1)
+    if -x + abs(x-y) == -y:
+        ans = min(ans, abs(x-y)+2)
+    if x + abs(x+y) == y:
+        ans = min(ans, abs(x+y))
+    if -(x + abs(x+y)) == y:
+        ans = min(ans, abs(x+y)+1)
+    if -x + abs(x+y) == y:
+        ans = min(ans, abs(x+y)+1)
+    if -x + abs(x+y) == -y:
+        ans = min(ans, abs(x+y)+2)
+    
+    print(ans)
+
+main()
+
 ```
 
 </details>
