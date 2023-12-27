@@ -2487,3 +2487,513 @@ main()
 ```
 
 </details>
+
+## 071. Spliting Pie 
+
+
+https://atcoder.jp/contests/abc067/tasks/arc078_a
+
+
+<details><summary>コード</summary>
+
+```python
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+
+    sm = sum(A)
+    ans = 10**18
+    snuke = 0
+
+    for i in range(N-1):
+        snuke += A[i]
+        ans = min(ans, abs(sm-2*snuke))
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 072. Multiple Clocks 
+
+https://atcoder.jp/contests/abc070/tasks/abc070_c
+
+<details><summary>コード</summary>
+
+```python
+from math import lcm 
+from functools import reduce 
+
+def main():
+    N = int(input())
+    t = [int(input()) for _ in range(N)]
+    ans = reduce(lcm, t)
+    print(ans)
+
+main()
+```
+
+</details>
+
+## 073. Sqrt Inquality 
+
+https://atcoder.jp/contests/panasonic2020/tasks/panasonic2020_c
+
+<details><summary>ポイント</summary>
+
+`Decimal`を用いた解法は嘘解法です、解説を読むまで知りませんでした。
+
+
+</details>
+
+
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    a, b, c = map(int, input().split())
+    if c-a-b > 0 and 4*a*b < (c-a-b)**2:
+        print("Yes")
+    else:
+        print("No")
+
+main()
+```
+
+</details>
+
+## 074. Dubious Document 
+
+https://atcoder.jp/contests/abc058/tasks/arc071_a
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict
+
+def main():
+    n = int(input())
+    d = defaultdict(list)
+    alphabet_letters = list('abcdefghijklmnopqrstuvwxyz')
+
+    for _ in range(n):
+        s = input()
+        for i in range(26):
+            d[alphabet_letters[i]].append(s.count(alphabet_letters[i]))
+    
+    ans = []
+
+    for k, v in d.items():
+        if len(v) == 0:
+            continue
+        for _ in range(min(v)):
+            ans.append(k)
+
+    ans = "".join(sorted(ans))
+
+    print(ans)
+
+main()
+
+```
+
+</details>
+
+## 075. Prediction and Restriction 
+
+https://atcoder.jp/contests/abc149/tasks/abc149_d
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N, K = map(int, input().split())
+    R, S, P = map(int, input().split())
+    T = list(input())
+
+    ans = 0
+    hand_li = []
+    for i in range(N):
+        if i < K:
+            if T[i] == "r":
+                hand_li.append("p")
+                ans += P
+            elif T[i] == "p":
+                hand_li.append("s")
+                ans += S
+            else:
+                hand_li.append("r")
+                ans += R
+        else:
+            if T[i] == "r" and hand_li[i-K] != "p":
+                hand_li.append("p")
+                ans += P
+            elif T[i] == "p" and hand_li[i-K] != "s":
+                hand_li.append("s")
+                ans += S
+            elif T[i] == "s" and hand_li[i-K] != "r":
+                hand_li.append("r")
+                ans += R   
+            else:
+                hand_li.append("f")
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+
+
+## 076. Attention 
+
+https://atcoder.jp/contests/abc098/tasks/arc098_a
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N = int(input())
+    S = list(input())
+    east = [0]
+    west = [0]
+    for i in S:
+        if i == "E":
+            east.append(east[-1]+1)
+            west.append(west[-1])
+        else:
+            east.append(east[-1])
+            west.append(west[-1]+1)
+    
+    ans = 10**18
+    for j in range(1, N+1):
+        num = east[-1] - east[j]
+        num += west[j-1]
+        ans = min(ans, num)
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+
+## 077. HSI
+
+https://atcoder.jp/contests/abc078/tasks/arc085_a
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N, M = map(int, input().split())
+    time_per_submission = 1900 * M + 100 * (N-M)
+    ans = time_per_submission * 2 ** M
+    print(ans)
+
+main()
+
+```
+
+</details>
+
+## 078. Connection and Disconnection 
+
+https://atcoder.jp/contests/agc039/tasks/agc039_a
+
+
+<details><summary>ポイント</summary>
+
+ランレングス圧縮。コードは[こちら](https://qiita.com/Kept1994/items/e9179d1dd7c6455d6883)からお借りしました。ありがとうございます。
+
+</details>
+
+<details><summary>コード</summary>
+
+```python
+from itertools import groupby
+
+def runLengthEncode(S: str):
+    grouped = groupby(S)
+    res = []
+    for k, v in grouped:
+        res.append((k, int(len(list(v)))))
+    return res
+
+def main():
+    S = input()
+    K = int(input())
+
+    if len(set(S)) == 1:
+        print((len(S)*K)//2)
+        return
+    
+    S_next = S*2
+
+    s_runlength = runLengthEncode(S)
+    sn_runLength = runLengthEncode(S_next)
+
+    s_cnt = 0
+    sn_cnt = 0
+
+    for i in s_runlength:
+        s_cnt += i[1] // 2
+    
+    for j in sn_runLength:
+        sn_cnt += j[1] // 2
+    
+    if K == 1:
+        print(s_cnt)
+    else:
+        print(s_cnt + (sn_cnt-s_cnt) * (K-1))
+
+main()
+
+
+```
+
+</details>
+
+
+## 079. Reconciled
+
+https://atcoder.jp/contests/abc065/tasks/arc076_a
+
+<details><summary>ポイント</summary>
+
+差は1が限界。1多いと外側に来るのが決まるので階乗取って掛け合わせるだけ。同数ならどちらが先にならんでもいいので階乗に2をかける。
+
+</details>
+
+<details><summary>コード</summary>
+
+```python
+from math import factorial 
+
+def main():
+    N, M = map(int, input().split())
+    MOD = 10**9+7
+
+    if abs(N-M) > 1:
+        return 0
+    
+    if N == M:
+        return ((factorial(N)%MOD)**2%MOD)*2%MOD
+    
+    return (factorial(N)%MOD * factorial(M)%MOD)%MOD
+
+print(main())
+```
+
+</details>
+
+## 080. Colorful Subsequence 
+
+https://atcoder.jp/contests/agc031/tasks/agc031_a
+
+<details><summary>ポイント</summary>
+
+`aa`とかは、1個目のaを選ぶ、2個目のaを選ぶ、どちらも選ばないの3通りなので辞書で持ってvalue+1の積をとる、最後に何も選ばない1通りを引く
+
+</details>
+
+<details><summary>コード</summary>
+
+```python
+from collections import defaultdict
+
+def main():
+    N = int(input())
+    S = input()
+    d = defaultdict(int)
+    MOD = 10**9+7
+    for i in S:
+        d[i] += 1
+
+    ans = 1
+    for v in d.values():
+        ans *= v+1
+        ans %= MOD
+    
+    print((ans-1)%MOD)
+
+main()
+
+    
+
+```
+
+</details>
+
+## 081. 1D Reversi 
+
+<details><summary>ポイント</summary>
+
+ランレングス圧縮。コードは[こちら](https://qiita.com/Kept1994/items/e9179d1dd7c6455d6883)からお借りしました。ありがとうございます。
+
+</details>
+
+<details><summary>コード</summary>
+
+```python
+from itertools import groupby
+
+
+def runLengthEncode(S: str):
+    grouped = groupby(S)
+    res = []
+    for k, v in grouped:
+        res.append((k, int(len(list(v)))))
+    return res
+
+def main():
+    S = input()
+    S_encoded = runLengthEncode(S)
+    print(len(S_encoded)-1)
+
+main()
+```
+
+</details>
+
+## 082. Be Together 
+
+https://atcoder.jp/contests/arc059/tasks/arc059_a
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+    
+    ans = 10**18
+    for i in range(min(A), max(A)+1):
+        cost = 0
+        for j in range(N):
+            cost += abs(i-A[j])**2
+        ans = min(ans, cost)
+    
+    print(ans)
+
+main()
+```
+
+</details>
+
+
+## 083. Limited Insertion 
+
+https://atcoder.jp/contests/agc032/tasks/agc032_a
+
+解説AC
+
+<details><summary>コード</summary>
+
+```python
+def main():
+    N = int(input())
+    B = list(map(int, input().split()))
+
+    ans = []
+    for _ in range(N):
+        for j in reversed(range(len(B))):
+
+            if B[j] == j+1:
+                ans.append(j+1)
+                del B[j]
+                break
+    
+    if len(B) > 0:
+        print(-1)
+    else:
+        for k in ans[::-1]:
+            print(k)
+
+main()
+
+```
+
+</details>
+
+
+## 084. Triangles
+
+https://atcoder.jp/contests/abc143/tasks/abc143_d
+
+
+<details><summary>コード</summary>
+
+```python
+
+from bisect import bisect_left
+
+def main():
+    N = int(input())
+    L = sorted(list(map(int, input().split())))
+    ans = 0
+    for i in range(N):
+        for j in range(i+1, N):
+            # i+j=kでは直線になってしまう
+            idx = bisect_left(L, L[i]+L[j])-1
+            #ｊより小さい場合を削除
+            if idx-j > 0:
+                ans += idx-j
+    
+    print(ans)
+
+
+main()
+```
+
+</details>
+
+## 085. Diverse World 
+
+https://atcoder.jp/contests/agc022/tasks/agc022_a
+
+
+
+
+## 086. XOR Circle 
+
+https://atcoder.jp/contests/agc035/tasks/agc035_a
+
+<details><summary>コード</summary>
+
+```python
+from collections import Counter
+
+def main():
+    N = int(input())
+    A = list(map(int, input().split()))
+
+    c = sorted(list(Counter(A).items()))
+    if len(c) == 1 and c[0][0] == 0:
+        return True
+    if len(c) == 2 and c[0][0] == 0 and c[0][1] * 2 == c[1][1]:
+        return True
+    if len(c) == 3 and c[0][1] == c[1][1] == c[2][1] and c[0][0]^c[1][0]^c[2][0] == 0:
+        return True
+    return False
+
+
+if main():
+    print("Yes")
+else:
+    print("No")
+```
+
+</details>
+
+
+## 087. Exam and Wizard 
+
+https://atcoder.jp/contests/keyence2019/tasks/keyence2019_c
+
